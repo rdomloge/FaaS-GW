@@ -7,7 +7,7 @@ public class CorrelationIdGenerator {
 
 	private long count;
 	
-	public String createCorrelationId() {
+	public synchronized String createCorrelationId() {
 		return "CORRELATION-"+(count++);
 	}
 }
