@@ -71,7 +71,7 @@ public class RabbitConfig {
 	
 	@Bean
 	public Queue queue() {
-		Queue q = new Queue(getResponseQueueName());
+		Queue q = new Queue(getResponseQueueName(), false, true, true);
 		return q;
 	}
 	
