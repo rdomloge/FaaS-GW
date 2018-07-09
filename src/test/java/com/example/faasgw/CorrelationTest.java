@@ -5,16 +5,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.example.faas.dto.JobRequest;
 import com.example.faas.dto.JobResponse;
 import com.example.faasgw.ex.CorrelationTimeoutException;
 import com.example.faasgw.ex.NonCorrelationException;
 
-class CorrelationTest {
+public class CorrelationTest {
 
 	private Correlation target;
 	
@@ -22,15 +22,19 @@ class CorrelationTest {
 	
 	private ScheduledExecutorService exec;
 	
-	@BeforeEach
-	void setUp() throws Exception {
+	public CorrelationTest() {
+		
+	}
+	
+	@Before
+	public void setUp() throws Exception {
 		target = new Correlation();
 		idgen = new CorrelationIdGenerator();
 		exec = Executors.newScheduledThreadPool(100);
 	}
 
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 		exec.shutdownNow();
 	}
 
@@ -69,7 +73,7 @@ class CorrelationTest {
 	}
 	
 	@Test
-	void test() throws InterruptedException {
+	public void test() throws InterruptedException {
 		for(int i=0; i < 50; i++) {
 			String id = idgen.createCorrelationId();
 			exec.schedule(new Consumer(id), 100, TimeUnit.MILLISECONDS);
