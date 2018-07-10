@@ -25,7 +25,7 @@ public class ResponseReceiver {
 	public void receive(String message) throws IOException {
 		LOGGER.debug("Response received: {}", message);
 		JobResponse jobResponse = mapper.readValue(message, JobResponse.class);
-		LOGGER.debug("It's a response to {}", jobResponse.getJobRequest().getCorrelationId());
+		LOGGER.debug("It's a {} response to {}", jobResponse.getOutcome(), jobResponse.getJobRequest().getCorrelationId());
 		try {
 			correlation.responseReceived(jobResponse.getJobRequest().getCorrelationId(), jobResponse);
 		} 
