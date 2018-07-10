@@ -115,7 +115,7 @@ public class Correlation {
 						Wrapper removed = map.remove(corellationId);
 						JobResponse removedResponse = removed.getResponse();
 						LOGGER.warn("Reponse for {} not collected after {} seconds: {}", corellationId, 
-							responseKeepSeconds, removedResponse.getJsonResponse());
+							responseKeepSeconds, removedResponse.getPayload());
 					}
 					else {
 						LOGGER.debug("Response used");

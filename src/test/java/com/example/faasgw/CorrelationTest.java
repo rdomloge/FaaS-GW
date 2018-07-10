@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.example.faas.dto.JobRequest;
 import com.example.faas.dto.JobResponse;
+import com.example.faas.dto.Outcome;
 import com.example.faasgw.ex.CorrelationTimeoutException;
 import com.example.faasgw.ex.NonCorrelationException;
 
@@ -63,7 +64,7 @@ public class CorrelationTest {
 			String json = "adsf";
 			Map<String, String> params = null;
 			JobRequest request = new JobRequest("test", params, null, id);
-			JobResponse response = new JobResponse(request, json);
+			JobResponse response = new JobResponse(request, json, Outcome.SUCCESS);
 			try {
 				target.responseReceived(id, response);
 			} catch (NonCorrelationException e) {

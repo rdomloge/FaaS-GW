@@ -13,6 +13,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +64,9 @@ public class JobController {
 		return new ResponseEntity<String>(correlationId, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/correlation/{correlationId}", method={ RequestMethod.GET })
+	@RequestMapping(value="/correlation/{correlationId}", 
+			method={ RequestMethod.GET },
+			produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<JobResponse> poll(@PathVariable("correlationId") String correlationId) {
 		LOGGER.debug("Poll for {}", correlationId);
 		try {
