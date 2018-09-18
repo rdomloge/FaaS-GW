@@ -1,6 +1,7 @@
 package com.example.faasgw;
 
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +63,7 @@ public class CorrelationTest {
 		
 		public void run() {
 			String json = "adsf";
-			Map<String, String> params = null;
+			Properties params = null;
 			JobRequest request = new JobRequest("test", params, null, id);
 			JobResponse response = new JobResponse(request, json, Outcome.SUCCESS);
 			try {

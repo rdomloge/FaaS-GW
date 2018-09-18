@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +25,6 @@ import com.example.faas.dto.JobRequest;
 import com.example.faas.dto.JobResponse;
 import com.example.faasgw.ex.CorrelationTimeoutException;
 import com.example.faasgw.ex.NonCorrelationException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
@@ -52,7 +52,7 @@ public class JobController {
 			HttpServletRequest req) throws IOException {
 		
 		LOGGER.debug("New job for {}", functionName);
-		Map<String, String> params = stripParams(req);
+		Properties params = stripParams(req);
 		LOGGER.debug("Params: {}", params);
 		String correlationId = correlationIdGenerator.createCorrelationId();
 		JobRequest jobRequest = new JobRequest(functionName, params, gatewayRoutingKey, correlationId);
@@ -86,9 +86,9 @@ public class JobController {
 		}
 	}
 	
-	private Map<String, String> stripParams(HttpServletRequest req) {
+	private Properties stripParams(HttpServletRequest req) {
 		Enumeration<String> parameterNames = req.getParameterNames();
-		Map<String, String> params = new HashMap<>();
+		Properties params = new Properties();
 		while(parameterNames.hasMoreElements()) {
 			String key = parameterNames.nextElement();
 			params.put(key, req.getParameter(key)); // assumes singular values
@@ -101,7 +101,7 @@ public class JobController {
 			HttpServletRequest req) throws IOException, InterruptedException {
 		
 		LOGGER.debug("New job for {}", functionName);
-		Map<String, String> params = stripParams(req);
+		Properties params = stripParams(req);
 		LOGGER.debug("Params: {}", params);
 		String correlationId = correlationIdGenerator.createCorrelationId();
 		JobRequest jobRequest = new JobRequest(functionName, params, gatewayRoutingKey, correlationId);
